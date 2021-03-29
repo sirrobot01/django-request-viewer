@@ -81,8 +81,8 @@ Well, no big drama, fork the repo and make pull requests, easy peasy, right?
 ### TODO
 
 * Exceptions logger
-* Creating an African unicorn
-* Buying a yacht
+* Create an African unicorn
+* Buy a yacht
 
 ### Credits
 
