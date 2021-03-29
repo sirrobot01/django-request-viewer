@@ -1,0 +1,1 @@
+from django.urls import pathfrom .views import RequestViewDashboard, get_modal_contenturlpatterns = [    path('request-viewer/', RequestViewDashboard.as_view(), name="request-viewer"),    path('modal-content/', get_modal_content, name='modal-content')]
