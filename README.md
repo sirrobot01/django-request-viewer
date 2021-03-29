@@ -26,7 +26,7 @@ Add `'request-viewer'` to your `INSTALLED_APPS` in settings.py.
 
     INSTALLED_APPS = [
         ...
-        'request-viewer',
+        'request_viewer',
         ...
     ]
   
