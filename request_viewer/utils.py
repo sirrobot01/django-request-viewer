@@ -13,6 +13,7 @@ def is_whitelisted(norm_path, whitelisted_paths=None):
 
     for path in whitelisted_paths:
         path = '/' + path if not path.startswith('/') else path
+        path = path[:-1] if path.endswith('/') else path 
         if os.path.normpath(norm_path).startswith(path):
             is_whitelist = True
             break
