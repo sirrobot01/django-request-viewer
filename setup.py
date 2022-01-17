@@ -7,8 +7,8 @@ def read(f):
 
 setup(
     name="django-request-viewer",
-    version='1.0.0',
-    description="Log and view requests made on your Django app",
+    version='1.0.1',
+    description="Log and view requests and exceptions made on your Django app",
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
     url="https://github.com/sirrobot01/django-request-viewer",
