@@ -13,7 +13,7 @@ from .conf import LIVE_MONITORING
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-@method_decorator(user_passes_test(is_admin), name='dispatch')
+#@method_decorator(user_passes_test(is_admin), name='dispatch')
 class RequestViewDashboard(generic.ListView):
     template_name = "request_viewer/dashboard.html"
     model = Logger

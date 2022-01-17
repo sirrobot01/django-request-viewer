@@ -109,3 +109,12 @@ class TemplateResponseModel(BaseResponse):
         }
         return dict(super(TemplateResponseModel, self).__dict__, **data)
 
+
+class ExceptionModel(models.Model):
+    exc_type = models.CharField(max_length=255)
+    message = models.TextField(blank=True, null=True)
+    func_name = models.CharField(max_length=1024)
+    line_no = models.IntegerField()
+    line = models.TextField(blank=True, null=True)
+    stacks = models.JSONField(default=list)
+    logged_at = models.DateTimeField(auto_now_add=True)
