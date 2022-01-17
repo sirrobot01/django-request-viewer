@@ -1,10 +1,12 @@
-from django.db import models
 import json
-from django.conf import settings
-from django.http import HttpRequest
 from datetime import datetime
 
+from django.conf import settings
+from django.db import models
+from django.http import HttpRequest
+
 from .conf import DATETIME_FORMAT
+
 try:
     from django.db.models import JSONField
 except ModuleNotFoundError:
@@ -13,11 +15,16 @@ except ModuleNotFoundError:
 
 # Create your models here.
 
+class BaseClass:
+
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
 
 class Logger(models.Model):
     path = models.CharField(max_length=255, blank=True, null=True)
     data = models.JSONField(default=list)
-    
+
     @classmethod
     def get_data(cls, filter_by=None, value=None):
         data = []
@@ -26,13 +33,6 @@ class Logger(models.Model):
             log_data = log.data
             data.extend(log_data)
         return data
-
-
-class BaseClass:
-    
-    def to_json(self):
-        return json.dumps(self.__dict__)
-
 
 class RequestModel(BaseClass):
     LOG_EXCEPTIONS = getattr(settings, "LOG_EXCEPTIONS", False)
@@ -48,7 +48,7 @@ class RequestModel(BaseClass):
 
     def get_object(self):
         return self.__class__(**self.__dict__)
-    
+
     @property
     def __dict__(self):
         return {
@@ -62,14 +62,14 @@ class RequestModel(BaseClass):
 
 
 class BaseResponse(BaseClass):
-    
+
     def __init__(self, response):
         self.status_code = response.status_code
         self.status_message = response.reason_phrase
         self.content_type = response.charset
         self.response_datetime = datetime.now().strftime(DATETIME_FORMAT)
         super(BaseResponse, self).__init__()
-    
+
     @property
     def __dict__(self):
         return {
@@ -78,7 +78,7 @@ class BaseResponse(BaseClass):
             "content_type": self.content_type,
             "response_timestamp": self.response_datetime
         }
-    
+
 
 class ResponseModel(BaseResponse):
 
@@ -88,10 +88,11 @@ class ResponseModel(BaseResponse):
         else:
             self.message = response.content
         super(ResponseModel, self).__init__(response)
-    
+
     @property
     def __dict__(self):
         return dict(super(ResponseModel, self).__dict__, **{"message": self.message})
+
 
 class TemplateResponseModel(BaseResponse):
 
@@ -100,7 +101,7 @@ class TemplateResponseModel(BaseResponse):
         context_data = response.context_data
         self.view = str(context_data.get('view'))
         super(TemplateResponseModel, self).__init__(response)
-    
+
     @property
     def __dict__(self):
         data = {
@@ -109,3 +110,20 @@ class TemplateResponseModel(BaseResponse):
         }
         return dict(super(TemplateResponseModel, self).__dict__, **data)
 
+
+class Caching:
+    def __init__(self, cache):
+        self.cache = cache
+        self.model = Logger
+        self.keys = [key.split(':')[-1] for key in self.cache._cache if str(key).startswith('request-viewer')]
+
+    def save(self):
+        for path, data in zip(self.keys, self.cache.get_many(self.keys)):
+            self.model.objects.get_or_create(path=path, data=data)
+        self.cache.delete_many(self.keys)
+    
+    @property
+    def is_empty(self):
+        return bool(self.keys)
+
+    
