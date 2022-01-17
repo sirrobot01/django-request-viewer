@@ -1,1 +1,3 @@
-include LICENSEinclude README.mdrecursive-include request_viewer/templates *
+include LICENSE
+include README.md
+recursive-include request_viewer/templates *
