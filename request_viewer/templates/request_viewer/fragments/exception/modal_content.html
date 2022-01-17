@@ -1,0 +1,46 @@
+<div class="space-y-4">
+    <table class="min-w-full divide-y divide-gray-200 mb-5">
+        <tbody class="bg-white divide-y divide-gray-200 space-y-4y">
+        <tr>
+            <td class="px-6 py-1 whitespace-nowrap"><b>Exception</b>: {{ obj.exc_type }}</td>
+        </tr>
+        <tr>
+            <td class="px-6 py-1 whitespace-nowrap"><b>Line No</b>: {{ obj.line_no }}</td>
+        </tr>
+        <tr>
+            <td class="px-6 py-1 whitespace-nowrap"><b>Message</b>: {{ obj.message  }}</td>
+        </tr>
+        <tr>
+            <td class="px-6 py-1 whitespace-nowrap"><b>Logged time</b>: {{ obj.logged_at }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-message-tab" data-toggle="pill" href="#pills-message" role="tab"
+               aria-controls="pills-response" aria-selected="false">Message</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-stacks-tab" data-toggle="pill" href="#pills-stacks"
+               role="tab"
+               aria-controls="pills-stacks" aria-selected="true">Stacks</a>
+        </li>
+    </ul>
+    <div class="card tab-content p-3 mb-3 mt-2 bg-gray-800 text-white" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-message" role="tabpanel" aria-labelledby="pills-message-tab">
+            <code class="text-green-300">{{ obj.message }}</code>
+        </div>
+        <div class="tab-pane fade" id="pills-stacks" role="tabpanel" aria-labelledby="pills-stacks-tab">
+            ---------------------------------------- <br>
+            {% for stack in obj.stacks %}
+                {% for key, value in stack.items %}
+                    {% if value %}
+                        <code class="row font-mono text-sm ml-2"><b>{{ key }}</b>: <code
+                                class="text-green-300">{{ value }}</code></code>
+                    {% endif %}
+                {% endfor %}
+                <br> ----------------------------------------
+            {% endfor %}
+        </div>
+    </div>
+</div>
