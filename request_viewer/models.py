@@ -118,3 +118,4 @@ class ExceptionModel(models.Model):
     line = models.TextField(blank=True, null=True)
     stacks = models.JSONField(default=list)
     logged_at = models.DateTimeField(auto_now_add=True)
+        

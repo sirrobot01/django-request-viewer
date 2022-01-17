@@ -1,7 +1,12 @@
 # Django Request Viewer
 
 
-Log and view requests made on your Django App
+Log and view requests and exceptions made on your Django App
+
+#### Updates 17th, January 2022
+
+- Adds Exception logger
+- Cleaned up the code
 
 ### Introduction
 
@@ -38,6 +43,16 @@ Add  `'request_viewer.middleware.RequestViewerMiddleware'` to your MIDDLEWARE li
         'request_viewer.middleware.RequestViewerMiddleware',
         ...
     ]  
+
+##### To log exceptions, add
+
+Add  `'request_viewer.middleware.ExceptionMiddleware'` to your MIDDLEWARE list in settings.py.
+
+    MIDDLEWARE = [
+        ...
+        'request_viewer.middleware.ExceptionMiddleware',
+        ...
+    ]  
     
 Add `'request-viewer'` to your main urls.py
 
@@ -65,22 +80,23 @@ Add `REQUEST_VIEWER` dictionary to your settings.py.
   
 **Note**: Media url, Static url and request-viewer url are automatically excluded.
 <br>
-Start your server and head to http://localhost:8000/log/request-viewer
-≤br>
+
+### Start your server and head to http://localhost:8000/log/request-viewer to view requests
+
+### Head to http://localhost:8000/log/request-viewer/exceptions to view exceptions
+
 
 View your request logs.<br> 
 
 <img width="1440" alt="Screenshot 2021-03-29 at 09 30 33" src="https://user-images.githubusercontent.com/32229538/112814936-b3623d80-9077-11eb-9cdf-38f7088b6a24.png">
 
-
-
 ### Contribute
 
-Well, no big drama, fork the repo and make pull requests, easy peasy, right?
+Well, no big drama, fork the repo and make pull requests, easy-peasy, right?
 
 ### TODO
-
-* Exceptions logger
+* JSON export
+* Caching
 * Create an African unicorn
 * Buy a yacht
 
