@@ -26,7 +26,7 @@ Add `'request-viewer'` to your `INSTALLED_APPS` in settings.py.
 
     INSTALLED_APPS = [
         ...
-        'request-viewer',
+        'request_viewer',
         ...
     ]
   
@@ -56,11 +56,11 @@ Add `REQUEST_VIEWER` dictionary to your settings.py.
 
 **LIVE_MONITORING**: Default: `True`, False to pause monitoring. 
 
-**WHITELISTED_PATHS**: Default: `[]`, This is a list of paths to be excluded when monitoring
+**WHITELISTED_PATH**: Default: `[]`, This is a list of paths to be excluded when monitoring
 
     {
       "LIVE_MONITORING": True,
-      "WHITELISTED_PATHS": ['admin/']
+      "WHITELISTED_PATH": ['admin/']
     }
   
 **Note**: Media url, Static url and request-viewer url are automatically excluded.
@@ -81,8 +81,8 @@ Well, no big drama, fork the repo and make pull requests, easy peasy, right?
 ### TODO
 
 * Exceptions logger
-* Creating an African unicorn
-* Buying a yacht
+* Create an African unicorn
+* Buy a yacht
 
 ### Credits
 
