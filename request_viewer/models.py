@@ -8,7 +8,10 @@ from .conf import DATETIME_FORMAT
 try:
     from django.db.models import JSONField
 except ModuleNotFoundError:
-    from django.contrib.postgres.fields import JSONField
+    try:
+        from jsonfield import JSONField
+    except:
+        from django.contrib.postgres.fields import JSONField
 
 
 # Create your models here.
@@ -16,7 +19,7 @@ except ModuleNotFoundError:
 
 class Logger(models.Model):
     path = models.CharField(max_length=255, blank=True, null=True)
-    data = models.JSONField(default=list)
+    data = JSONField(default=list)
     
     @classmethod
     def get_data(cls, filter_by=None, value=None):
@@ -116,6 +119,6 @@ class ExceptionModel(models.Model):
     func_name = models.CharField(max_length=1024)
     line_no = models.IntegerField()
     line = models.TextField(blank=True, null=True)
-    stacks = models.JSONField(default=list)
+    stacks = JSONField(default=list)
     logged_at = models.DateTimeField(auto_now_add=True)
         
