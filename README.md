@@ -62,7 +62,7 @@ Add `'request-viewer'` to your main urls.py
       ...
     ]
     
-Run migrations, `python manage.py migrate request-viewer`
+Run migrations, `python manage.py migrate request_viewer`
     
 **OPTIONAL** 
 
@@ -81,9 +81,9 @@ Add `REQUEST_VIEWER` dictionary to your settings.py.
 **Note**: Media url, Static url and request-viewer url are automatically excluded.
 <br>
 
-### Start your server and head to http://localhost:8000/log/request-viewer to view requests
+### Start your server and head to http://localhost:8000/logs/request-viewer to view requests
 
-### Head to http://localhost:8000/log/request-viewer/exceptions to view exceptions
+### Head to http://localhost:8000/logs/request-viewer/exceptions to view exceptions
 
 
 View your request logs.<br> 
