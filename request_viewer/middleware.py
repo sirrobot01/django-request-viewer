@@ -40,6 +40,7 @@ class RequestViewerMiddleware:
 
             obj.data = old_data
             obj.save()
+            return response
 
         return self.get_response(request)
 
