@@ -1,7 +1,7 @@
 from django.db import models
 import json
 from django.conf import settings
-from django.http import HttpRequest
+from django.http import HttpRequest, StreamingHttpResponse
 from datetime import datetime
 
 from .conf import DATETIME_FORMAT
@@ -86,7 +86,9 @@ class BaseResponse(BaseClass):
 class ResponseModel(BaseResponse):
 
     def __init__(self, response):
-        if isinstance(response.content, bytes):
+        if isinstance(response, StreamingHttpResponse):
+            self.message = "StreamingHttpResponse"
+        elif isinstance(response.content, bytes):
             self.message = response.content.decode()
         else:
             self.message = response.content
