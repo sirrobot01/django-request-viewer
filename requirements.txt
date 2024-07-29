@@ -1,2 +1,2 @@
-setuptools==65.6.3
+setuptools==72.0.0
 django-jsonfield~=1.4.1
